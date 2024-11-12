@@ -1,0 +1,13 @@
+body{
+    background-color: #ccc;
+}
+
+.div-table-horario{
+    display: flex;
+    border: 2px solid #aaa;
+    border-radius: 5px;
+    justify-content: space-around;
+}
+table{
+    align-items: center;
+}
