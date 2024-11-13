@@ -9,5 +9,11 @@ body{
     justify-content: space-around;
 }
 table{
-    align-items: center;
+    border: 1px solid;
+    display: grid;
+    width: 170px;
+}
+
+thead, th{
+    align-self: center;
 }

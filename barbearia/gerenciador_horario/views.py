@@ -18,7 +18,7 @@ def horario(request):
         'table_tuesday': table_tuesday,
         'table_wednesday': table_wednesday,
         'table_thursday': table_thursday,
-        'table_frday': table_friday,
+        'table_friday': table_friday,
     }
 
     return render(request, 'horario.html', context=context)

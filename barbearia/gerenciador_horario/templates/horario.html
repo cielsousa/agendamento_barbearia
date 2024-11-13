@@ -46,18 +46,18 @@
                 </tr>
             </thead>
             
-            {% if table_terca %}
+            {% if table_tuesday %}
             <tbody>
-                    {% for horario in table_terca %}
-                    <tr>
-                        <td>{{ horario.horario }}</th>
-                        {% if horario.scheduled == False %}
-                            <td>Disponível</th>
-                        {% else %}
-                            <td>Agendado</td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
+                {% for horario in table_tuesday %}
+                <tr>
+                    <td>{{ horario.horario }}</th>
+                    {% if horario.scheduled == False %}
+                        <td>Disponível</th>
+                    {% else %}
+                        <td>Agendado</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
             </tbody>
             {% endif %}
             <tfoot>
