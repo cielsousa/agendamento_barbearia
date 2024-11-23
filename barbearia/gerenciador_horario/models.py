@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 
 # Create your models here.
 
@@ -12,9 +13,9 @@ class Client(models.Model):
 
 
 class Monday(models.Model):
-    horario = models.CharField(max_length=8)
-    client_name = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='+')
-    client_number = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='+')
+    horario = models.CharField(primary_key=True, max_length=8)
+    client_name = models.CharField(max_length=40)
+    client_number = models.CharField(max_length=11)
     scheduled = models.BooleanField(default=False)
 
     def __str__(self):
