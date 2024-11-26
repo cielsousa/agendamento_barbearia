@@ -29,7 +29,7 @@ def monday(request):
     return render(request, 'segunda.html', context=context)
 
 
-def segundaAgendado(request):
+def mondaySchedule(request):
     
     #Monday_instance = get_object_or_404(Monday)
 
@@ -79,17 +79,194 @@ def tuesday(request):
     return render(request, 'terca.html', context)
 
 
+def tuesdaySchedule(request):
+    
+    #Monday_instance = get_object_or_404(Monday)
+
+    if request.method == "POST":
+        form = ToScheduleTuesday(request.POST)
+
+        #check if the data is valid
+        if form.is_valid():
+            form_user_horario = form.cleaned_data['user_horario']
+            form_user_name = form.cleaned_data['user_name']
+            form_user_number = form.cleaned_data['user_number']
+            
+            if  form.cleaned_data['user_to_schedule'] == False:
+                user_scheduled = False
+            else:
+                user_scheduled = True
+            
+            
+            #form_user_horario = request.POST['user_horario']
+            #form_user_name = request.POST['user_name']
+            #form_user_number = request.POST['user_number']
+            #form_user_to_schedule = request.POST['user_to_schedule']
+
+            # Se o horario escolhido estiver dispinível,
+            # cria uma nova instância do horário escolhido na semana
+         
+            agendamento = Tuesday(horario=form_user_horario,
+                                client_name= form_user_name,
+                                client_number= form_user_number,
+                                scheduled= user_scheduled)
+                
+            agendamento.save()
+
+            return HttpResponseRedirect("/barbearia/horario")
+    
+        else:
+            return render(request, 'tercaAgendado.html', {'form': form})
+
+    else:
+        form = ToScheduleTuesday()
+        return render(request, 'tercaAgendado.html', {'form': form})
+
+
 def wednesday(request):
     context = {'form': ToScheduleWednesday}
 
     return render(request, 'quarta.html', context)
+
+
+def wednesdaySchedule(request):
+    
+    #Monday_instance = get_object_or_404(Monday)
+
+    if request.method == "POST":
+        form = ToScheduleWednesday(request.POST)
+
+        #check if the data is valid
+        if form.is_valid():
+            form_user_horario = form.cleaned_data['user_horario']
+            form_user_name = form.cleaned_data['user_name']
+            form_user_number = form.cleaned_data['user_number']
+            
+            if  form.cleaned_data['user_to_schedule'] == False:
+                user_scheduled = False
+            else:
+                user_scheduled = True
+            
+            
+            #form_user_horario = request.POST['user_horario']
+            #form_user_name = request.POST['user_name']
+            #form_user_number = request.POST['user_number']
+            #form_user_to_schedule = request.POST['user_to_schedule']
+
+            # Se o horario escolhido estiver dispinível,
+            # cria uma nova instância do horário escolhido na semana
+         
+            agendamento = Wednesday(horario=form_user_horario,
+                                client_name= form_user_name,
+                                client_number= form_user_number,
+                                scheduled= user_scheduled)
+                
+            agendamento.save()
+
+            return HttpResponseRedirect("/barbearia/horario")
+    
+        else:
+            return render(request, 'wednesdayAgendado.html', {'form': form})
+
+    else:
+        form = ToScheduleWednesday()
+        return render(request, 'wednesdayAgendado.html', {'form': form})
+
 
 def thursday(request):
     context = {'form': ToScheduleThursday}
 
     return render(request, 'quinta.html', context)
 
+
+def thursdaySchedule(request):
+    
+    #Monday_instance = get_object_or_404(Monday)
+
+    if request.method == "POST":
+        form = ToScheduleThursday(request.POST)
+
+        #check if the data is valid
+        if form.is_valid():
+            form_user_horario = form.cleaned_data['user_horario']
+            form_user_name = form.cleaned_data['user_name']
+            form_user_number = form.cleaned_data['user_number']
+            
+            if  form.cleaned_data['user_to_schedule'] == False:
+                user_scheduled = False
+            else:
+                user_scheduled = True
+            
+            
+            #form_user_horario = request.POST['user_horario']
+            #form_user_name = request.POST['user_name']
+            #form_user_number = request.POST['user_number']
+            #form_user_to_schedule = request.POST['user_to_schedule']
+
+            # Se o horario escolhido estiver dispinível,
+            # cria uma nova instância do horário escolhido na semana
+         
+            agendamento = Thursday(horario=form_user_horario,
+                                client_name= form_user_name,
+                                client_number= form_user_number,
+                                scheduled= user_scheduled)
+                
+            agendamento.save()
+
+            return HttpResponseRedirect("/barbearia/horario")
+    
+        else:
+            return render(request, 'thursdayAgendado.html', {'form': form})
+
+    else:
+        form = ToScheduleThursday()
+        return render(request, 'thursdayAgendado.html', {'form': form})
+
+
 def friday(request):
     context = {'form': ToScheduleFriday}
 
     return render(request, 'sexta.html', context)
+
+def fridaySchedule(request):
+    
+    #Monday_instance = get_object_or_404(Monday)
+
+    if request.method == "POST":
+        form = ToScheduleFriday(request.POST)
+
+        #check if the data is valid
+        if form.is_valid():
+            form_user_horario = form.cleaned_data['user_horario']
+            form_user_name = form.cleaned_data['user_name']
+            form_user_number = form.cleaned_data['user_number']
+            
+            if  form.cleaned_data['user_to_schedule'] == False:
+                user_scheduled = False
+            else:
+                user_scheduled = True
+            
+            
+            #form_user_horario = request.POST['user_horario']
+            #form_user_name = request.POST['user_name']
+            #form_user_number = request.POST['user_number']
+            #form_user_to_schedule = request.POST['user_to_schedule']
+
+            # Se o horario escolhido estiver dispinível,
+            # cria uma nova instância do horário escolhido na semana
+         
+            agendamento = Friday(horario=form_user_horario,
+                                client_name= form_user_name,
+                                client_number= form_user_number,
+                                scheduled= user_scheduled)
+                
+            agendamento.save()
+
+            return HttpResponseRedirect("/barbearia/horario")
+    
+        else:
+            return render(request, 'fridayAgendado.html', {'form': form})
+
+    else:
+        form = ToScheduleFriday()
+        return render(request, 'fridayAgendado.html', {'form': form})
