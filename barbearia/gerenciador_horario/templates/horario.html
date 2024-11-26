@@ -7,158 +7,160 @@
 </head>
 <body>
 
-    <div class="div-table-horario">
-        <table>
-            <thead>
-                <tr>
-                    <th scope="row">Segunda</th>
-                </tr>
-            </thead>
-            
-            {% if table_monday %}
-            <tbody>
-                    {% for horario in table_monday %}
-                    <tr>
-                        <td>{{ horario.horario }}</th>
-                        {% if horario.scheduled == False %}
-                            <td>Disponível</th>
-                        {% else %}
-                            <td>Agendado</td>
+    <section>
+        <div class="container">
+            <h2>Agende seu horário</h2>
+            <div class="week-table">
+                <div class="week-day">
+                    <h3>Segunda-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Horário</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_monday %}
+                        <tbody>
+                            {% for horario in table_monday %}
+                                <tr>
+                                    <td>{{ horario.horario }}</th>
+                                    {% if horario.scheduled == False %}
+                                        <td>Disponível</th>
+                                    {% else %}
+                                        <td>Agendado</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                         {% endif %}
-                    </tr>
-                    {% endfor %}
-            </tbody>
-           
-            {% endif %}
-            <tfoot>
-                <tr>
-                    <td>
-                        <a href="horario/segunda"><button>Agendar na Segunda</button></a>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+                        
+                    </table>
+                    <a href="horario/segunda"><button class="button-day">Agendar na Segunda</button></a>
+                </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <td>Terça</td>
-                </tr>
-            </thead>
-            
-            {% if table_tuesday %}
-            <tbody>
-                {% for horario in table_tuesday %}
-                <tr>
-                    <td>{{ horario.horario }}</th>
-                    {% if horario.scheduled == False %}
-                        <td>Disponível</th>
-                    {% else %}
-                        <td>Agendado</td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-            {% endif %}
-            <tfoot>
-                <tr>
-                    <td>
-                        <a href=""><button>Agendar na Terça</button></a>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <table>
-            <thead>
-                <tr>
-                    <td>Quarta</td>
-                </tr>
-            </thead>
-            
-            {% if table_wednesday %}
-            <tbody>
-                    {% for horario in table_wednesday %}
-                    <tr>
-                        <td>{{ horario.horario }}</th>
-                        {% if horario.scheduled == False %}
-                            <td>Disponível</th>
-                        {% else %}
-                            <td>Agendado</td>
+                <div class="week-day">
+                    <h3>Terça-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="row">Horário</th>
+                                <th scope="row">Status</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_tuesday %}
+                        <tbody>
+                            {% for horario in table_tuesday %}
+                                <tr>
+                                    <td>{{ horario.horario }}</th>
+                                    {% if horario.scheduled == False %}
+                                        <td>Disponível</th>
+                                    {% else %}
+                                        <td>Agendado</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    
                         {% endif %}
-                    </tr>
-                    {% endfor %}
-            </tbody>
-            {% endif %}
-            <tfoot>
-                <tr>
-                    <td>
-                        <a href=""><button>Agendar na Quarta</button></a>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
 
-        <table>
-            <thead>
-                <tr>
-                    <td>Quinta</td>
-                </tr>
-            </thead>
-            
-            {% if table_thursday %}
-            <tbody>
-                    {% for horario in table_thursday %}
-                    <tr>
-                        <td>{{ horario.horario }}</th>
-                        {% if horario.scheduled == False %}
-                            <td>Disponível</th>
-                        {% else %}
-                            <td>Agendado</td>
+                    </table>
+                    <a href="horario/terca"><button class="button-day">Agendar na Terça</button></a>
+                </div>
+
+                <div class="week-day">
+                    <h3>Quarta-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="row">Horário</th>
+                                <th scope="row">Status</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_wednesday %}
+                        <tbody>
+                            {% for horario in table_wednesday %}
+                                <tr>
+                                    <td>{{ horario.horario }}</th>
+                                    {% if horario.scheduled == False %}
+                                        <td>Disponível</th>
+                                    {% else %}
+                                        <td>Agendado</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    
                         {% endif %}
-                    </tr>
-                    {% endfor %}
-            </tbody>
-            {% endif %}
-            <tfoot>
-                <tr>
-                    <td>
-                        <a href=""><button>Agendar na Quinta</button></a>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
 
-        <table>
-            <thead>
-                <tr>
-                    <td>Sexta</td>
-                </tr>
-            </thead>
-            
-            {% if table_friday %}
-            <tbody>
-                    {% for horario in table_friday %}
-                    <tr>
-                        <td>{{ horario.horario }}</th>
-                        {% if horario.scheduled == False %}
-                            <td>Disponível</th>
-                        {% else %}
-                            <td>Agendado</td>
+                    </table>
+                    <a href="horario/quarta"><button class="button-day">Agendar na Quarta</button></a>
+                </div>
+
+                <div class="week-day">
+                    <h3>Quinta-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="row">Horário</th>
+                                <th scope="row">Status</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_thursday %}
+                        <tbody>
+                            {% for horario in table_thursday %}
+                                <tr>
+                                    <td>{{ horario.horario }}</th>
+                                    {% if horario.scheduled == False %}
+                                        <td>Disponível</th>
+                                    {% else %}
+                                        <td>Agendado</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    
                         {% endif %}
-                    </tr>
-                    {% endfor %}
-            </tbody>
-            {% endif %}
-            <tfoot>
-                <tr>
-                    <td>
-                        <a href=""><button>Agendar na Sexta</button></a>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
 
-    </div>
+                    </table>
+                    <a href="horario/quinta"><button class="button-day">Agendar na Quinta</button></a>
+                </div>
+
+                <div class="week-day">
+                    <h3>Sexta-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="row">Horário</th>
+                                <th scope="row">Status</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_friday %}
+                        <tbody>
+                            {% for horario in table_friday %}
+                                <tr>
+                                    <td>{{ horario.horario }}</th>
+                                    {% if horario.scheduled == False %}
+                                        <td>Disponível</th>
+                                    {% else %}
+                                        <td>Agendado</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    
+                        {% endif %}
+
+                    </table>
+                    <a href="horario/sexta"><button class="button-day">Agendar na Friday</button></a>
+                </div>
+            </div>    
+        </div>
+    </section>
 </body>
 </html>

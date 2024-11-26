@@ -20,6 +20,7 @@ class Monday(models.Model):
 
     def __str__(self):
         return self.horario
+    
 
 class Tuesday(models.Model):
     horario = models.CharField(max_length=8)
