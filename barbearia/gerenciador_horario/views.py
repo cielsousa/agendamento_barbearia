@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Client, Monday, Tuesday, Wednesday, Thursday, Friday
+from .models import Monday, Tuesday, Wednesday, Thursday, Friday
 from .forms import ToScheduleMonday, ToScheduleTuesday, ToScheduleWednesday, ToScheduleThursday, ToScheduleFriday
 from django.http import HttpResponseRedirect
 

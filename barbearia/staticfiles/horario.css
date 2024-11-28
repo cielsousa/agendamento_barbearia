@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Aral', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container{
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+section h2{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.week-table{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.week-day{
+    margin: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.week-day h3{
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.button-day{
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 6px;
+    text-align: center;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #c1c;
+}
+
+tbody{
+    text-align: inherit;
+}
