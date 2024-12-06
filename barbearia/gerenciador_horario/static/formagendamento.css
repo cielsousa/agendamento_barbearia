@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+}
+
+.container {
+    width: 60%;
+    margin: 20%;
+    padding: 20px 0;
+    background-color: #d44810;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.form-agendamento {
+    margin: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin: 20px;
+}
+
+.form-group-user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+.form-group-user :last-child{
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+}
+
+#button-submit{
+    width: 95px;
+    height: 25px;
+}

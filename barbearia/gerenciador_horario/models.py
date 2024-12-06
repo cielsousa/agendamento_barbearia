@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator, MaxLengthValidator
+import time
 
 # Create your models here.
 
@@ -17,6 +18,13 @@ class Monday(models.Model):
     client_name = models.CharField(max_length=40)
     client_number = models.CharField(max_length=11)
     scheduled = models.BooleanField(default=False)
+
+    if scheduled == True:
+        time.sleep(10)
+        scheduled = False
+
+    else:
+        False
 
     def __str__(self):
         return self.horario

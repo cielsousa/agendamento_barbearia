@@ -60,7 +60,7 @@ def mondaySchedule(request):
                                 client_name= form_user_name,
                                 client_number= form_user_number,
                                 scheduled= user_scheduled)
-                
+            
             agendamento.save()
 
             return HttpResponseRedirect("/barbearia/horario")
