@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Monday, Tuesday, Wednesday, Thursday, Friday
+from .models import Client, Monday, Tuesday, Wednesday, Thursday, Friday
 from .forms import ToScheduleMonday, ToScheduleTuesday, ToScheduleWednesday, ToScheduleThursday, ToScheduleFriday
 from django.http import HttpResponseRedirect
 
@@ -63,7 +63,7 @@ def mondaySchedule(request):
             
             agendamento.save()
 
-            return HttpResponseRedirect("/barbearia/horario")
+            return HttpResponseRedirect("")
     
         else:
             return render(request, 'segundaAgendado.html', {'form': form})
@@ -113,7 +113,7 @@ def tuesdaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("/barbearia/horario")
+            return HttpResponseRedirect("")
     
         else:
             return render(request, 'tercaAgendado.html', {'form': form})
@@ -163,7 +163,7 @@ def wednesdaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("/barbearia/horario")
+            return HttpResponseRedirect("")
     
         else:
             return render(request, 'wednesdayAgendado.html', {'form': form})
@@ -213,7 +213,7 @@ def thursdaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("/barbearia/horario")
+            return HttpResponseRedirect("")
     
         else:
             return render(request, 'thursdayAgendado.html', {'form': form})
@@ -262,11 +262,29 @@ def fridaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("/barbearia/horario")
+            return HttpResponseRedirect("")
     
         else:
-            return render(request, 'fridayAgendado.html', {'form': form})
+            return render(request, 'sextaAgendado.html', {'form': form})
 
     else:
         form = ToScheduleFriday()
-        return render(request, 'fridayAgendado.html', {'form': form})
+        return render(request, 'sextaAgendado.html', {'form': form})
+
+def timeScheduled(request):
+
+    table_monday = Monday.objects.all().order_by('horario')
+    table_tuesday = Tuesday.objects.all().order_by('horario')
+    table_wednesday = Wednesday.objects.all().order_by('horario')
+    table_thursday = Thursday.objects.all().order_by('horario')
+    table_friday = Friday.objects.all().order_by('horario')
+    
+    context = {
+        'table_monday': table_monday,
+        'table_tuesday': table_tuesday,
+        'table_wednesday': table_wednesday,
+        'table_thursday': table_thursday,
+        'table_friday': table_friday,
+    }
+    
+    return render(request, 'agendado.html', context)

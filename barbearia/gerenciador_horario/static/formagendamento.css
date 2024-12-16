@@ -9,6 +9,32 @@ body {
     background-color: #333;
 }
 
+.header-container{
+    background-color: #d44810;
+    color: #333;
+    text-align: center;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-button{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    height: 30px;
+    width: 130px;
+    border-radius: 4px;
+    margin: 10px;
+    color: #333;
+    background-color: #ccc;
+}
+
+a{
+    text-decoration: none;
+}
+
 .container {
     width: 60%;
     margin: 20%;

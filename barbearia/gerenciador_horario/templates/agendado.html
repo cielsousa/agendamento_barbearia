@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<title>Horários agendados</title>
+{% load static %}
+<link rel= "stylesheet" type="text/css" href="{% static "agendado.css" %}"/>
+</head>
+
+<header>
+    <div class="header-container">
+        <h1>Barbearia corte rápido e chavoso</h1>
+        <a href="/"><button class="home-button">Painel de Horários</button></a>
+    </div>
+</header>
+
+<body>
+    <section>
+        <div class="container">
+            <h2>Olá barbeiro, os seguintes horários estão agendados:</h2>
+            <div class="week-table-scheduled">
+                <div class="week-day-scheduled">
+                    <h3>Segunda-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Horário</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telefofe</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_monday %}
+                        <tbody>
+                            {% for horario in table_monday %}
+                            {% if horario.scheduled == True %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Agendado</th>
+                                    <td>{{ horario.client_name }}</td>
+                                    <td>{{ horario.client_number }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Não está agendado</td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                        
+                    </table>
+                </div>
+
+                <div class="week-day-scheduled">
+                    <h3>Terça-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Horário</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telefofe</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_tuesday %}
+                        <tbody>
+                            {% for horario in table_tuesday %}
+                            {% if horario.scheduled == True %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Agendado</th>
+                                    <td>{{ horario.client_name }}</td>
+                                    <td>{{ horario.client_number }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Não está agendado</td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                        
+                    </table>
+                </div>
+
+                <div class="week-day-scheduled">
+                    <h3>Quarta-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Horário</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telefofe</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_wednesday %}
+                        <tbody>
+                            {% for horario in table_wednesday %}
+                            {% if horario.scheduled == True %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Agendado</th>
+                                    <td>{{ horario.client_name }}</td>
+                                    <td>{{ horario.client_number }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Não está agendado</td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                        
+                    </table>
+                </div>
+
+                <div class="week-day-scheduled">
+                    <h3>Quinta-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Horário</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telefofe</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_thursday %}
+                        <tbody>
+                            {% for horario in table_thursday %}
+                            {% if horario.scheduled == True %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Agendado</th>
+                                    <td>{{ horario.client_name }}</td>
+                                    <td>{{ horario.client_number }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Não está agendado</td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                        
+                    </table>
+                </div>
+
+                <div class="week-day-scheduled">
+                    <h3>Sexta-feira</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Horário</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telefofe</th>
+                            </tr>
+                        </thead>
+                        
+                        {% if table_friday %}
+                        <tbody>
+                            {% for horario in table_friday %}
+                            {% if horario.scheduled == True %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Agendado</th>
+                                    <td>{{ horario.client_name }}</td>
+                                    <td>{{ horario.client_number }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>{{ horario.horario }}</td>
+                                    <td>Não está agendado</td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                        
+                    </table>
+                </div>
+
+            </div>    
+        </div>
+    </section>
+</body>
+</html>

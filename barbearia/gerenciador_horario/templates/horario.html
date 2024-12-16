@@ -6,6 +6,11 @@
 <link rel="stylesheet" type="text/css" href="{% static 'horario.css' %}" />
 </head>
 <body>
+    <header>
+        <div class="header-container">
+            <h1>Barbearia corte rápido e chavoso</h1>
+        </div>
+    </header>
 
     <section>
         <div class="container">
@@ -25,7 +30,7 @@
                         <tbody>
                             {% for horario in table_monday %}
                                 <tr>
-                                    <td>{{ horario.horario }}</th>
+                                    <td>{{ horario.horario }}</td>
                                     {% if horario.scheduled == False %}
                                         <td>Disponível</th>
                                     {% else %}
@@ -37,7 +42,9 @@
                         {% endif %}
                         
                     </table>
-                    <a href="horario/segunda"><button class="button-day">Agendar na Segunda</button></a>
+                    <div class="button-day-div">
+                        <a href="segunda/"><button class="button-day">Agendar na Segunda</button></a>
+                    </div>
                 </div>
 
                 <div class="week-day">
@@ -54,7 +61,7 @@
                         <tbody>
                             {% for horario in table_tuesday %}
                                 <tr>
-                                    <td>{{ horario.horario }}</th>
+                                    <td>{{ horario.horario }}</td>
                                     {% if horario.scheduled == False %}
                                         <td>Disponível</th>
                                     {% else %}
@@ -67,7 +74,9 @@
                         {% endif %}
 
                     </table>
-                    <a href="horario/terca"><button class="button-day">Agendar na Terça</button></a>
+                    <div class="button-day-div">
+                        <a href="terca/"><button class="button-day">Agendar na Terça</button></a>
+                    </div>
                 </div>
 
                 <div class="week-day">
@@ -84,7 +93,7 @@
                         <tbody>
                             {% for horario in table_wednesday %}
                                 <tr>
-                                    <td>{{ horario.horario }}</th>
+                                    <td>{{ horario.horario }}</td>
                                     {% if horario.scheduled == False %}
                                         <td>Disponível</th>
                                     {% else %}
@@ -97,7 +106,9 @@
                         {% endif %}
 
                     </table>
-                    <a href="horario/quarta"><button class="button-day">Agendar na Quarta</button></a>
+                    <div class="button-day-div">
+                        <a href="quarta/"><button class="button-day">Agendar na Quarta</button></a>
+                    </div>
                 </div>
 
                 <div class="week-day">
@@ -114,7 +125,7 @@
                         <tbody>
                             {% for horario in table_thursday %}
                                 <tr>
-                                    <td>{{ horario.horario }}</th>
+                                    <td>{{ horario.horario }}</td>
                                     {% if horario.scheduled == False %}
                                         <td>Disponível</th>
                                     {% else %}
@@ -127,7 +138,9 @@
                         {% endif %}
 
                     </table>
-                    <a href="horario/quinta"><button class="button-day">Agendar na Quinta</button></a>
+                    <div class="button-day-div">
+                        <a href="quinta"><button class="button-day">Agendar na Quinta</button></a>
+                    </div>
                 </div>
 
                 <div class="week-day">
@@ -144,7 +157,7 @@
                         <tbody>
                             {% for horario in table_friday %}
                                 <tr>
-                                    <td>{{ horario.horario }}</th>
+                                    <td>{{ horario.horario }}</td>
                                     {% if horario.scheduled == False %}
                                         <td>Disponível</th>
                                     {% else %}
@@ -157,7 +170,9 @@
                         {% endif %}
 
                     </table>
-                    <a href="horario/sexta"><button class="button-day">Agendar na Sexta</button></a>
+                    <div class="button-day-div">
+                        <a href="sexta"><button class="button-day">Agendar na Sexta</button></a>
+                    </div>
                 </div>
             </div>    
         </div>

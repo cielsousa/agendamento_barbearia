@@ -1,7 +1,7 @@
-* {
+*{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: 0;
 }
 
 body{
@@ -10,12 +10,35 @@ body{
     color: #333;
 }
 
+
+
 .header-container{
     background-color: #d44810;
     color: #333;
     text-align: center;
-    padding: 40px 0;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
 }
+
+.home-button{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    height: 30px;
+    width: 130px;
+    border-radius: 4px;
+    margin: 10px;
+    color: #333;
+    background-color: #ccc;
+}
+
+a{
+    text-decoration: none;
+}
+
+
 
 .container{
     width: 90%;
@@ -31,13 +54,13 @@ section h2{
     color: #ccc;
 }
 
-.week-table{
+.week-table-scheduled{
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
-.week-day{
+.week-day-scheduled{
     margin: 10px;
     padding: 20px;
     background-color: #ccc;
@@ -45,23 +68,14 @@ section h2{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     min-width: 300px;
-    display: grid;
-    align-items: end;
 }
 
-.week-day h3{
+.week-day-scheduled h3{
     font-size: 1.8rem;
     text-align: center;
     margin-bottom: 20px;
 }
 
-
-.button-day{
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin: 15px;
-    text-align: center;
-}
 
 table{
     width: 100%;
