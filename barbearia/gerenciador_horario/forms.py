@@ -2,7 +2,7 @@ from django import forms
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 from .models import Monday, Tuesday, Wednesday, Thursday, Friday
 
-class ToScheduleMonday (forms.Form):
+class ToScheduleMonday (forms.Form): 
     user_horario = forms.ModelChoiceField(label="Horário desejado:", queryset=Monday.objects.filter(scheduled = False).order_by('horario'))
     user_name = forms.CharField(label="Nome:")
     user_number = forms.CharField(label="Telefone:", validators=[MinLengthValidator(10), MaxLengthValidator(11)])

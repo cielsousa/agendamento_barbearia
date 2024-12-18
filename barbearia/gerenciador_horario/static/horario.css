@@ -6,13 +6,13 @@
 
 body{
     font-family: 'Arial', sans-serif;
-    background-color: #333;
+    background-color: #f4f4f4;
     color: #333;
 }
 
 .header-container{
-    background-color: #d44810;
-    color: #333;
+    background-color: #0056b3;
+    color: #fff;
     text-align: center;
     padding: 40px 0;
 }
@@ -25,10 +25,10 @@ body{
 }
 
 section h2{
-    font-size: 2rem;
+    font-size: 2.5rem;
     text-align: center;
     margin-bottom: 40px;
-    color: #ccc;
+    color: #333;
 }
 
 .week-table{
@@ -40,7 +40,7 @@ section h2{
 .week-day{
     margin: 10px;
     padding: 20px;
-    background-color: #ccc;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -57,15 +57,19 @@ section h2{
 
 
 .button-day{
+    font-size: 1rem;
     padding: 10px 20px;
     border-radius: 5px;
     margin: 15px;
     text-align: center;
+    border: none;
+    background-color: #ccc;
 }
 
 table{
     width: 100%;
     border-collapse: collapse;
+    font-size: 1.1rem;
 }
 
 tbody{
@@ -74,6 +78,6 @@ tbody{
 
 table th, table td{
     border: 1px solid #333;
-    padding: 5px;
+    padding: 8px;
 }
 

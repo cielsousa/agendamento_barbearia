@@ -23,6 +23,10 @@ def horario(request):
 
     return render(request, 'horario.html', context=context)
 
+def etc(request):
+ 
+    return render(request, 'etc.html')
+
 def monday(request):
     context = {'form': ToScheduleMonday}
 
@@ -63,14 +67,13 @@ def mondaySchedule(request):
             
             agendamento.save()
 
-            return HttpResponseRedirect("")
-    
+            return HttpResponseRedirect('/')
         else:
-            return render(request, 'segundaAgendado.html', {'form': form})
+            return render(request, 'segunda.html', {'form': form})
 
     else:
         form = ToScheduleMonday()
-        return render(request, 'segundaAgendado.html', {'form': form})
+        return render(request, 'segunda.html', {'form': form})
 
 
 def tuesday(request):

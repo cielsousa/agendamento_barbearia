@@ -13,5 +13,6 @@ urlpatterns = [
     path('quarta/quartaAgendado/', views.wednesdaySchedule, name='wednesdaySchedule'),
     path('quinta/quintaAgendado/', views.thursdaySchedule, name='thursdaySchedule'),
     path('sexta/sextaAgendado/', views.fridaySchedule, name='fridaySchedule'),
-    path('agendado/', views.timeScheduled, name='timeScheduled')
+    path('agendado/', views.timeScheduled, name='timeScheduled'),
+    path('etc', views.etc, name='etc')
 ]
