@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-<title>Agendar na Sexta</title>
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static "formagendamento.css" %}"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-wiwdth, initial-scale=1">
+    <title>Agendar na Sexta</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "formagendamento.css" %}"/>
 
 </head>
 
@@ -20,7 +21,7 @@
     <div class="container">
       <h2>Formulário de agendamento</h2>
 
-      <form class="form-agendamento" action="sextaAgendado/" method="post">
+      <form class="form-agendamento" action="" method="post">
           {% csrf_token %}
           
           <div class="form-group-user">
@@ -31,6 +32,7 @@
             {{form.user_number.label}}
             {{form.user_number}}
           </div>
+          <span>{{form.user_number.errors}}</span>
           <div class="form-group">
             {{form.user_horario.label}}
             {{form.user_horario}}

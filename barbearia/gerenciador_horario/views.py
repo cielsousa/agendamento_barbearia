@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from .models import Client, Monday, Tuesday, Wednesday, Thursday, Friday
 from .forms import ToScheduleMonday, ToScheduleTuesday, ToScheduleWednesday, ToScheduleThursday, ToScheduleFriday
 from django.http import HttpResponseRedirect
-
+from django.core.validators import MaxLengthValidator, MinLengthValidator
+from django.core.exceptions import ValidationError
+from django.contrib import messages
 
 def horario(request):
     table_monday = Monday.objects.all().order_by('horario')
@@ -23,20 +25,13 @@ def horario(request):
 
     return render(request, 'horario.html', context=context)
 
+
 def etc(request):
  
     return render(request, 'etc.html')
 
+
 def monday(request):
-    context = {'form': ToScheduleMonday}
-
-    return render(request, 'segunda.html', context=context)
-
-
-def mondaySchedule(request):
-    
-    #Monday_instance = get_object_or_404(Monday)
-
     if request.method == "POST":
         form = ToScheduleMonday(request.POST)
 
@@ -68,24 +63,17 @@ def mondaySchedule(request):
             agendamento.save()
 
             return HttpResponseRedirect('/')
+        
         else:
             return render(request, 'segunda.html', {'form': form})
-
+        
     else:
         form = ToScheduleMonday()
-        return render(request, 'segunda.html', {'form': form})
+        context = {'form': form}
+        return render(request, 'segunda.html', context)
 
 
 def tuesday(request):
-    context = {'form': ToScheduleTuesday}
-
-    return render(request, 'terca.html', context)
-
-
-def tuesdaySchedule(request):
-    
-    #Monday_instance = get_object_or_404(Monday)
-
     if request.method == "POST":
         form = ToScheduleTuesday(request.POST)
 
@@ -116,26 +104,17 @@ def tuesdaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("")
+            return HttpResponseRedirect("/")
     
         else:
-            return render(request, 'tercaAgendado.html', {'form': form})
+            return render(request, 'terca.html', {'form': form})
 
     else:
-        form = ToScheduleTuesday()
-        return render(request, 'tercaAgendado.html', {'form': form})
+        context = {'form': ToScheduleTuesday}
+        return render(request, 'terca.html', context)
 
 
 def wednesday(request):
-    context = {'form': ToScheduleWednesday}
-
-    return render(request, 'quarta.html', context)
-
-
-def wednesdaySchedule(request):
-    
-    #Monday_instance = get_object_or_404(Monday)
-
     if request.method == "POST":
         form = ToScheduleWednesday(request.POST)
 
@@ -166,26 +145,17 @@ def wednesdaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("")
+            return HttpResponseRedirect("/")
     
         else:
-            return render(request, 'wednesdayAgendado.html', {'form': form})
+            return render(request, 'quarta.html', {'form': form})
 
     else:
-        form = ToScheduleWednesday()
-        return render(request, 'wednesdayAgendado.html', {'form': form})
+        context = {'form': ToScheduleWednesday}
+        return render(request, 'quarta.html', context)
 
 
 def thursday(request):
-    context = {'form': ToScheduleThursday}
-
-    return render(request, 'quinta.html', context)
-
-
-def thursdaySchedule(request):
-    
-    #Monday_instance = get_object_or_404(Monday)
-
     if request.method == "POST":
         form = ToScheduleThursday(request.POST)
 
@@ -216,25 +186,17 @@ def thursdaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("")
+            return HttpResponseRedirect("/")
     
         else:
-            return render(request, 'thursdayAgendado.html', {'form': form})
+            return render(request, 'quinta.html', {'form': form})
 
     else:
-        form = ToScheduleThursday()
-        return render(request, 'thursdayAgendado.html', {'form': form})
+        context = {'form': ToScheduleThursday}
+        return render(request, 'quinta.html', context)
 
 
 def friday(request):
-    context = {'form': ToScheduleFriday}
-
-    return render(request, 'sexta.html', context)
-
-def fridaySchedule(request):
-    
-    #Monday_instance = get_object_or_404(Monday)
-
     if request.method == "POST":
         form = ToScheduleFriday(request.POST)
 
@@ -265,14 +227,15 @@ def fridaySchedule(request):
                 
             agendamento.save()
 
-            return HttpResponseRedirect("")
+            return HttpResponseRedirect("/")
     
         else:
-            return render(request, 'sextaAgendado.html', {'form': form})
+            return render(request, 'sexta.html', {'form': form})
 
     else:
-        form = ToScheduleFriday()
-        return render(request, 'sextaAgendado.html', {'form': form})
+        context = {'form': ToScheduleFriday}
+        return render(request, 'sexta.html', context)
+
 
 def timeScheduled(request):
 
