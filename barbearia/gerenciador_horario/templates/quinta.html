@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-<title>Agendar na Qunta</title>
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static "formagendamento.css" %}"/>
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-wiwdth, initial-scale=1">
+    <title>Agendar na Quinta</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "formagendamento.css" %}"/>
 </head>
 
 <header>
@@ -20,7 +20,7 @@
     <div class="container">
       <h2>Formulário de agendamento</h2>
 
-      <form class="form-agendamento" action="quintaAgendado/" method="post">
+      <form class="form-agendamento" action="" method="post">
           {% csrf_token %}
           
           <div class="form-group-user">
