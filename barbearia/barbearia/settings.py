@@ -122,10 +122,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = ('static/')
+STATIC_URL = ('/home/LucielNascimento/agendamento_barbearia/barbearia/gerenciador_horario/static/')
 
 
-STATIC_ROOT = "/home/LucielNascimento/agendamento_barbearia/barbearia/staticfiles/"
+STATIC_ROOT = "staticfiles/"
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 #STATIC_ROOT = 'static/'
