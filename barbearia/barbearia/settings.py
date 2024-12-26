@@ -28,9 +28,9 @@ key = get_random_secret_key()
 SECRET_KEY = key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['LucielNascimento.pythonanywhere.com']
 
 
 # Application definition
