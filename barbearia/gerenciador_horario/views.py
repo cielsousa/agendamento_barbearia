@@ -168,7 +168,7 @@ def thursday(request):
             if  form.cleaned_data['user_to_schedule'] == False:
                 user_scheduled = False
             else:
-                user_scheduled = True
+                user_scheduled = True 
             
             
             #form_user_horario = request.POST['user_horario']

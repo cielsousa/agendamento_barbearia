@@ -8,7 +8,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #333; 
 }
-
+ 
 .header-container{
     background-color: #0056b3; 
     color: #fff;
@@ -36,13 +36,14 @@ a{
 }
 
 .container {
-    width: 60%;
-    margin: 20%;
+    width: auto;
+    margin: 20% 5%;
     padding: 20px 0;
     background-color: #0056b3;
     color: #fff;
     border-radius: 7px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
     align-content: center;
