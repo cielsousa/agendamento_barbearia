@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #333; 
+    background-color: #eee; 
 }
  
 .header-container{
@@ -35,6 +35,10 @@ a{
     text-decoration: none;
 }
 
+a:visited{
+    color: #333;
+}
+
 .container {
     width: auto;
     margin: 20% 5%;
@@ -48,8 +52,13 @@ a{
     flex-wrap: wrap;
     align-content: center;
     font-weight: bold;
+    box-shadow: 7px 7px 7px #0057b39f;
 
 }
+
+/*
+#fe4400
+*/
 
 .form-agendamento {
     margin: 20px;
