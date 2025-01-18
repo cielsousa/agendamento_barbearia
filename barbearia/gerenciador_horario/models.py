@@ -38,8 +38,10 @@ class Wednesday(models.Model):
     client_number = models.CharField(max_length=11)
     scheduled = models.BooleanField(default=False)
 
+
     def __str__(self):
         return self.horario
+    
 
 class Thursday(models.Model):
     horario = models.CharField(primary_key=True, max_length=8)

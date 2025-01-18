@@ -67,3 +67,6 @@ class ToScheduleFriday (forms.Form):
             raise ValidationError("Número inválido")
         return data
     
+
+class FormFinishAllSchedules (forms.Form):
+    form_finish_all_day = forms.BooleanField(widget=forms.CheckboxInput, required=False, label="Deseja finalizar todos os agendamentos?")

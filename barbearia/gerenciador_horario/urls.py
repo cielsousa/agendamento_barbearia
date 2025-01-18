@@ -9,11 +9,11 @@ urlpatterns = [
     path('quinta/', views.thursday, name='thursday'),
     path('sexta/', views.friday, name='friday'),
 
-    #path('segunda/segundaAgendado/', views.mondaySchedule, name='mondaySchedule'),
-    #path('terca/tercaAgendado/', views.tuesdaySchedule, name='tuesdaySchedule'),
-    #path('quarta/quartaAgendado/', views.wednesdaySchedule, name='wednesdaySchedule'),
-    #path('quinta/quintaAgendado/', views.thursdaySchedule, name='thursdaySchedule'),
-    #path('sexta/sextaAgendado/', views.fridaySchedule, name='fridaySchedule'),
+    path('agendado/segundaAgendado/', views.mondaySchedule, name='mondaySchedule'),
+    path('agendado/tercaAgendado/', views.tuesdaySchedule, name='tuesdaySchedule'),
+    path('agendado/quartaAgendado/', views.wednesdaySchedule, name='wednesdaySchedule'),
+    path('agendado/quintaAgendado/', views.thursdaySchedule, name='thursdaySchedule'),
+    path('agendado/sextaAgendado/', views.fridaySchedule, name='fridaySchedule'),
 
     path('agendado/', views.timeScheduled, name='timeScheduled'),
     path('etc', views.etc, name='etc')
