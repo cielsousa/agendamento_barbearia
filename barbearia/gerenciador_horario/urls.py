@@ -16,5 +16,10 @@ urlpatterns = [
     path('agendado/sextaAgendado/', views.fridaySchedule, name='fridaySchedule'),
 
     path('agendado/', views.timeScheduled, name='timeScheduled'),
-    path('etc', views.etc, name='etc')
+    path('etc', views.etc, name='etc'),
+
+    path('agendamento/', views.agendamento_view, name='agendamento'),
+    path('api/horarios/<int:dia_id>/', views.horarios_disponiveis, name='api_horarios'),
+    path('form-agendamento/', views.form_agendamento, name='criar_agendamento'),
+    path('agendamento/agendar/', views.criar_agendamento, name='criar_agendamento')
 ]

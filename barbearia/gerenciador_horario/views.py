@@ -1,11 +1,17 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from .models import Client, Monday, Tuesday, Wednesday, Thursday, Friday
-from .forms import ToScheduleMonday, ToScheduleTuesday, ToScheduleWednesday, ToScheduleThursday, ToScheduleFriday, FormFinishAllSchedules
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from .models import DiaDisponivel, HorarioDisponivel, Agendamento, Client, Monday, Tuesday, Wednesday, Thursday, Friday
+from .forms import ToScheduleMonday, ToScheduleTuesday, ToScheduleWednesday, ToScheduleThursday, ToScheduleFriday, FormFinishAllSchedules, AgendamentoForm
 from django.http import HttpResponseRedirect
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.core.exceptions import ValidationError
 from django.contrib import messages
+
+from django.template.loader import render_to_string
+
+from datetime import date
+import json
+
 
 def horario(request):
     table_monday = Monday.objects.all().order_by('horario')
@@ -357,3 +363,67 @@ def fridaySchedule(request):
                 horario.save()
 
         return HttpResponseRedirect('/agendado/')
+
+
+def agendamento_view(request):
+    dias = DiaDisponivel.objects.filter(data__gte=date.today()).order_by('data')[:14]
+    return render(request, 'agendamento.html', {'dias': dias})
+
+
+def horarios_disponiveis(request, dia_id):
+    horarios = HorarioDisponivel.objects.filter(dia_id=dia_id)
+
+    return JsonResponse([
+        {'id': h.id, 'hora': h.hora.strftime('%H:%M')} for h in horarios
+        ], safe=False)
+
+
+def criar_agendamento(request):
+    dias = DiaDisponivel.objects.all().order_by('data')[:7]
+
+    if request.method == "POST":
+        form = AgendamentoForm(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            telefone = form.cleaned_data['telefone']
+            dia_id = form.cleaned_data['dia_id']
+            horario_id = form.cleaned_data['horario_id']
+
+        if Agendamento.objects.filter(dia_id=dia_id, horario_id=horario_id).exists():
+            messages.error(request, {'Horário já foi agendado'})
+        else:
+            cliente, _ = Client.objects.get_or_create(name=nome, number=telefone)
+
+            Agendamento.objects.create(
+                cliente=cliente,
+                dia_id=dia_id,
+                horario_id=horario_id
+            )
+            messages.success(request, 'Agendamento realizado com sucesso!')
+            return redirect('agendamento')
+        
+    else:
+        form = AgendamentoForm()
+
+    context = {
+        'dias': dias,
+        'form': form
+        }
+    
+    return JsonResponse(context, safe=False)
+
+
+
+
+
+def form_agendamento(request):
+    dia_id = request.GET.get('dia_id')
+    horario_id = request.GET.get('horario_id')
+
+    form = AgendamentoForm(initial={
+        'dia_id': dia_id,
+        'horario_id': horario_id
+    })
+
+    html = render_to_string("form_agendamento.html", {"form": form}, request)
+    return JsonResponse({"html": html})
