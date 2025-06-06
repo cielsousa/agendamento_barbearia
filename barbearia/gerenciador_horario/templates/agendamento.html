@@ -8,30 +8,49 @@
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'horario.css' %}" />
 </head>
-<header>
+    <header>
         <div class="header-container">
             <h1>Barbearia corte rápido</h1>
         </div>
     </header>
 <body class="bg-gray-100 p-6">
-    
 
-  <h2>Lista de horários agendados</h2>
+  <div class="max-w-xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Escolha um dia</h2>
 
-    <div>
-      
-      <ul>
-        {% for i in horario_agendado %}
-        <li>
-          {{ i.cliente }}
-          {{ i.telefone }}
-          {{ i.dia }}
-          {{ i.horario }}
-          {{ i.criado_em }}
-        </li>
-        {% endfor %}
-      </ul>  
+    <!-- Carrossel de dias -->
+    <div id="dias-carousel" class="flex space-x-4 overflow-x-auto pb-2">
+      {% for dia in dias %}
+        <button
+          class="dia-btn min-w-[100px] p-3 bg-white rounded-lg shadow hover:bg-blue-500 hover:text-white transition"
+          data-dia="{{ dia.id }}"
+        >
+          {{ dia.data }}
+        </button>
+      {% endfor %}
     </div>
+
+    <!-- Horários disponíveis -->
+    <div id="horarios-container" class="mt-6 hidden">
+      <h3 class="text-xl font-semibold mb-3">Horários disponíveis</h3>
+      <div id="horarios-list" class="flex flex-wrap gap-3"></div>
+    </div>
+  </div>
+
+
+  <div id="form-container" class="mt-6 hidden">
+    <!-- Aqui o formulário será injetado -->
+  
+  
+    {% if messages %}
+      <div class="mt-4">
+        {% for message in messages %}
+          <p class="text-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
 
   <script>
     document.querySelectorAll(".dia-btn").forEach(btn => {

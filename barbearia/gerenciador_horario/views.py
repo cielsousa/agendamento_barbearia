@@ -1,29 +1,15 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from .models import Client, Monday, Tuesday, Wednesday, Thursday, Friday
-from .forms import ToScheduleMonday, ToScheduleTuesday, ToScheduleWednesday, ToScheduleThursday, ToScheduleFriday, FormFinishAllSchedules
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from .models import DiaDisponivel, HorarioDisponivel, Agendamento, Client, Monday, Tuesday, Wednesday, Thursday, Friday
+from .forms import FormAgendamento, ToScheduleMonday
 from django.http import HttpResponseRedirect
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 
-def horario(request):
-    table_monday = Monday.objects.all().order_by('horario')
-    table_tuesday = Tuesday.objects.all().order_by('horario')
-    table_wednesday = Wednesday.objects.all().order_by('horario')
-    table_thursday = Thursday.objects.all().order_by('horario')
-    table_friday = Friday.objects.all().order_by('horario')
+from django.template.loader import render_to_string
 
-
-    context = {
-        'table_monday': table_monday,
-        'table_tuesday': table_tuesday,
-        'table_wednesday': table_wednesday,
-        'table_thursday': table_thursday,
-        'table_friday': table_friday,
-    }
-
-    return render(request, 'horario.html', context=context)
+from datetime import date
 
 
 def etc(request):
@@ -73,287 +59,82 @@ def monday(request):
         return render(request, 'segunda.html', context)
 
 
-def tuesday(request):
-    if request.method == "POST":
-        form = ToScheduleTuesday(request.POST)
+def agendamento(request):
+    dias = DiaDisponivel.objects.filter(data__gte=date.today()).order_by('data')[:14]
+    return render(request, 'agendamento.html', {'dias': dias})
 
-        #check if the data is valid
+
+# Recebe a requisição com o dia selecionado, faz a consulta na tabela 
+# de horários de acordo com o dia e retorna os registros de horários
+# disponíveis daquele determinado dia
+
+def horarios_disponiveis(request, dia_id):
+    horario = HorarioDisponivel.objects.filter(dia=dia_id, agendado=False)
+
+    return JsonResponse([
+        {'id': h.id, 'hora': h.hora.strftime('%H:%M')} for h in horario
+        ], safe=False)
+
+
+# Recebe os dados de agendamento do usuário e preenche o formulário de agendamento
+def form_agendamento(request):
+    dia_id = request.GET.get('dia_id')
+    horario_id = request.GET.get('horario_id')
+
+    hora_disponivel = request.GET.get('hora_disponivel')
+
+    form = FormAgendamento(initial={
+        'dia_id': dia_id,
+        'horario_id': horario_id,
+        'hora_disponivel': hora_disponivel
+    })
+
+    html = render_to_string("form_agendamento.html", {"form": form}, request)
+    return JsonResponse({"html": html})
+
+
+def agendar(request):
+    if request.method == 'POST':
+        form = FormAgendamento(request.POST)
+
         if form.is_valid():
-            form_user_horario = form.cleaned_data['user_horario']
-            form_user_name = form.cleaned_data['user_name']
-            form_user_number = form.cleaned_data['user_number']
-            
-            if  form.cleaned_data['user_to_schedule'] == False:
-                user_scheduled = False
-            else:
-                user_scheduled = True
-            
-            
-            #form_user_horario = request.POST['user_horario']
-            #form_user_name = request.POST['user_name']
-            #form_user_number = request.POST['user_number']
-            #form_user_to_schedule = request.POST['user_to_schedule']
+            nome = form.cleaned_data['nome']
+            telefone = form.cleaned_data['telefone']
+            dia_id = form.cleaned_data['dia_id']
+            horario_id = form.cleaned_data['horario_id']
+            hora_disponivel = form.cleaned_data['hora_disponivel']
 
-            # Se o horario escolhido estiver dispinível,
-            # cria uma nova instância do horário escolhido na semana
-         
-            agendamento = Tuesday(horario=form_user_horario,
-                                client_name= form_user_name,
-                                client_number= form_user_number,
-                                scheduled= user_scheduled)
-                
-            agendamento.save()
+            # Salva o agendamento no horario selecionado pelo cliente
+            agendado = Agendamento(cliente=nome,
+                                   telefone=telefone,
+                                   dia=DiaDisponivel.objects.get(pk=dia_id),
+                                   horario=HorarioDisponivel.objects.get(pk=horario_id)
+                                   )
+            
+            agendado.save()
 
-            return HttpResponseRedirect("/")
-    
+            # Atualiza o registro do horario no banco de dados
+            HorarioDisponivel.objects.filter(dia=DiaDisponivel.objects.get(pk=dia_id),
+                                            hora=hora_disponivel).update(agendado=True)
+            
+            return HttpResponseRedirect('/agendamento/')
+
         else:
-            return render(request, 'terca.html', {'form': form})
+            return render(request, 'etc.html', {'form':form})
 
     else:
-        context = {'form': ToScheduleTuesday}
-        return render(request, 'terca.html', context)
-
-
-def wednesday(request):
-    if request.method == "POST":
-        form = ToScheduleWednesday(request.POST)
-
-        #check if the data is valid
-        if form.is_valid():
-            form_user_horario = form.cleaned_data['user_horario']
-            form_user_name = form.cleaned_data['user_name']
-            form_user_number = form.cleaned_data['user_number']
-            
-            if  form.cleaned_data['user_to_schedule'] == False:
-                user_scheduled = False
-            else:
-                user_scheduled = True
-            
-            
-            #form_user_horario = request.POST['user_horario']
-            #form_user_name = request.POST['user_name']
-            #form_user_number = request.POST['user_number']
-            #form_user_to_schedule = request.POST['user_to_schedule']
-
-            # Se o horario escolhido estiver dispinível,
-            # cria uma nova instância do horário escolhido na semana
-         
-            agendamento = Wednesday(horario=form_user_horario,
-                                client_name= form_user_name,
-                                client_number= form_user_number,
-                                scheduled= user_scheduled)
-                
-            agendamento.save()
-
-            return HttpResponseRedirect("/")
+        context = {'form': FormAgendamento}
+        return render(request, 'agendamento.html', context)
     
-        else:
-            return render(request, 'quarta.html', {'form': form})
 
-    else:
-        context = {'form': ToScheduleWednesday}
-        return render(request, 'quarta.html', context)
-
-
-def thursday(request):
-    if request.method == "POST":
-        form = ToScheduleThursday(request.POST)
-
-        #check if the data is valid
-        if form.is_valid():
-            form_user_horario = form.cleaned_data['user_horario']
-            form_user_name = form.cleaned_data['user_name']
-            form_user_number = form.cleaned_data['user_number']
-            
-            if  form.cleaned_data['user_to_schedule'] == False:
-                user_scheduled = False
-            else:
-                user_scheduled = True 
-            
-            
-            #form_user_horario = request.POST['user_horario']
-            #form_user_name = request.POST['user_name']
-            #form_user_number = request.POST['user_number']
-            #form_user_to_schedule = request.POST['user_to_schedule']
-
-            # Se o horario escolhido estiver dispinível,
-            # cria uma nova instância do horário escolhido na semana
-         
-            agendamento = Thursday(horario=form_user_horario,
-                                client_name= form_user_name,
-                                client_number= form_user_number,
-                                scheduled= user_scheduled)
-                
-            agendamento.save()
-
-            return HttpResponseRedirect("/")
-    
-        else:
-            return render(request, 'quinta.html', {'form': form})
-
-    else:
-        context = {'form': ToScheduleThursday}
-        return render(request, 'quinta.html', context)
-
-
-def friday(request):
-    if request.method == "POST":
-        form = ToScheduleFriday(request.POST)
-
-        #check if the data is valid
-        if form.is_valid():
-            form_user_horario = form.cleaned_data['user_horario']
-            form_user_name = form.cleaned_data['user_name']
-            form_user_number = form.cleaned_data['user_number']
-            
-            if  form.cleaned_data['user_to_schedule'] == False:
-                user_scheduled = False
-            else:
-                user_scheduled = True
-            
-            
-            #form_user_horario = request.POST['user_horario']
-            #form_user_name = request.POST['user_name']
-            #form_user_number = request.POST['user_number']
-            #form_user_to_schedule = request.POST['user_to_schedule']
-
-            # Se o horario escolhido estiver dispinível,
-            # cria uma nova instância do horário escolhido na semana
-         
-            agendamento = Friday(horario=form_user_horario,
-                                client_name= form_user_name,
-                                client_number= form_user_number,
-                                scheduled= user_scheduled)
-                
-            agendamento.save()
-
-            return HttpResponseRedirect("/")
-    
-        else:
-            return render(request, 'sexta.html', {'form': form})
-
-    else:
-        context = {'form': ToScheduleFriday}
-        return render(request, 'sexta.html', context)
-
-
-def timeScheduled(request):
-
-    table_monday = Monday.objects.all().order_by('horario')
-    table_tuesday = Tuesday.objects.all().order_by('horario')
-    table_wednesday = Wednesday.objects.all().order_by('horario')
-    table_thursday = Thursday.objects.all().order_by('horario')
-    table_friday = Friday.objects.all().order_by('horario')
-
-    monday_schedule = Monday.objects.all().filter(scheduled=True)
-    tuesday_schedule = Tuesday.objects.all().filter(scheduled=True)
-    wednesday_schedule = Wednesday.objects.all().filter(scheduled=True)
-    thursday_schedule = Thursday.objects.all().filter(scheduled=True)
-    friday_schedule = Friday.objects.all().filter(scheduled=True)
+def agendado(request):
+    # Filtra o field(dia) da tabela agendamento de acordo com filtro
+    # passado no field relacionado(data) da tabela diadisponivel e 
+    # retorna os registros correspondentes da tabela agendamento
+    horario_agendado = Agendamento.objects.filter( dia__data__gte=date.today())
     
     context = {
-        'table_monday': table_monday,
-        'table_tuesday': table_tuesday,
-        'table_wednesday': table_wednesday,
-        'table_thursday': table_thursday,
-        'table_friday': table_friday,
-
-        'monday_schedule': monday_schedule,
-        'tuesday_schedule': tuesday_schedule,
-        'wednesday_schedule': wednesday_schedule,
-        'thursday_schedule': thursday_schedule,
-        'friday_schedule': friday_schedule,
-        'form': FormFinishAllSchedules
+        'horario_agendado': horario_agendado
     }
-    
     return render(request, 'agendado.html', context)
 
-
-def mondaySchedule(request):
-        
-        monday_schedule = Monday.objects.all()
-
-        if request.method == 'POST':
-            form = FormFinishAllSchedules(request.POST)
-
-            #finish_all_day = form["form_finish_all_day"]
-            
-            # CONSERTAR ESSE BLOCO, ESTÁ CAINDO SEMPRE NO ELSE
-
-            for horario in monday_schedule:
-                horario.scheduled = False
-                horario.save()
-
-        return HttpResponseRedirect('/agendado/')
-
-
-def tuesdaySchedule(request):
-        
-        tuesday_schedule = Tuesday.objects.all()
-
-        if request.method == 'POST':
-            form = FormFinishAllSchedules(request.POST)
-
-            #finish_all_day = form["form_finish_all_day"]
-            
-            # CONSERTAR ESSE BLOCO, ESTÁ CAINDO SEMPRE NO ELSE
-
-            for horario in tuesday_schedule:
-                horario.scheduled = False
-                horario.save()
-
-        return HttpResponseRedirect('/agendado/')
-
-
-def wednesdaySchedule(request):
-        
-        wednesday_schedule = Wednesday.objects.all()
-
-        if request.method == 'POST':
-            form = FormFinishAllSchedules(request.POST)
-
-            #finish_all_day = form["form_finish_all_day"]
-            
-            # CONSERTAR ESSE BLOCO, ESTÁ CAINDO SEMPRE NO ELSE
-
-            for horario in wednesday_schedule:
-                horario.scheduled = False
-                horario.save()
-
-        return HttpResponseRedirect('/agendado/')
-
-
-def thursdaySchedule(request):
-        
-        thursday_schedule = Thursday.objects.all()
-
-        if request.method == 'POST':
-            form = FormFinishAllSchedules(request.POST)
-
-            #finish_all_day = form["form_finish_all_day"]
-            
-            # CONSERTAR ESSE BLOCO, ESTÁ CAINDO SEMPRE NO ELSE
-
-            for horario in thursday_schedule:
-                horario.scheduled = False
-                horario.save()
-
-        return HttpResponseRedirect('/agendado/')
-
-
-def fridaySchedule(request):
-        
-        friday_schedule = Friday.objects.all()
-
-        if request.method == 'POST':
-            form = FormFinishAllSchedules(request.POST)
-
-            #finish_all_day = form["form_finish_all_day"]
-            
-            # CONSERTAR ESSE BLOCO, ESTÁ CAINDO SEMPRE NO ELSE
-
-            for horario in friday_schedule:
-                horario.scheduled = False
-                horario.save()
-
-        return HttpResponseRedirect('/agendado/')

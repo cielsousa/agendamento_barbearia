@@ -1,0 +1,15 @@
+<form action="agendar/" method="post" class="flex flex-col gap-3 bg-white p-4 rounded shadow">
+    {% csrf_token %}
+    {{ form.nome.label }}
+    {{ form.nome }}
+    {{ form.telefone.label }}
+    {{ form.telefone }}
+    {{ form.dia_id }}
+    {{ form.horario_id }}
+    {{ form.hora_disponivel }}
+  
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Confirmar Agendamento
+    </button>
+  </form>
+  
