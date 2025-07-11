@@ -4,10 +4,20 @@
     {{ form.nome }}
     {{ form.telefone.label }}
     {{ form.telefone }}
+    {{ form.telefone.errors }}
     {{ form.dia_id }}
     {{ form.horario_id }}
     {{ form.hora_disponivel }}
   
+    {% if messages %}
+      <div class="mt-4">
+        {% for message in messages %}
+          <span>{{ form.telefone.errors }}</span>
+          <p class="text-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    
     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
       Confirmar Agendamento
     </button>

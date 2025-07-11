@@ -120,10 +120,10 @@ def agendar(request):
             return HttpResponseRedirect('/agendamento/')
 
         else:
-            return render(request, 'etc.html', {'form':form})
+            return render(request, 'agendamento.html', {'form':form})
 
     else:
-        context = {'form': FormAgendamento}
+        context = {'form': form}
         return render(request, 'agendamento.html', context)
     
 

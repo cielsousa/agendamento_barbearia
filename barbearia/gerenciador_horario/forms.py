@@ -11,7 +11,7 @@ class FormAgendamento(forms.Form):
     horario_id = forms.IntegerField(widget=forms.HiddenInput)
     hora_disponivel = forms.CharField(widget=forms.HiddenInput)
 
-    def clean_user_number(self):
+    def clean_telefone(self):
         data = self.cleaned_data["telefone"]
         if not 9 < len(data) < 12:
             raise ValidationError("Número inválido")

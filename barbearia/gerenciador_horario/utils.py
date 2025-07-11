@@ -33,6 +33,8 @@ def gerar_horario(hora_ini, minuto_ini, hora_fin, minuto_fin):
     hora_inicial = time(hora_ini, minuto_ini)
     hora_final = time(hora_fin, minuto_fin)
 
+    # 02/07
+    # Colocar um _gte aqui para criar horarios somente a partir da data atual
     dias = DiaDisponivel.objects.all()
 
     for dia in dias:

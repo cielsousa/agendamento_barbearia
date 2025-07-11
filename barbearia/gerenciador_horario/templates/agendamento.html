@@ -41,10 +41,11 @@
   <div id="form-container" class="mt-6 hidden">
     <!-- Aqui o formulário será injetado -->
   
-  
+ 
     {% if messages %}
       <div class="mt-4">
         {% for message in messages %}
+          <span>{{ form.telefone.errors }}</span>
           <p class="text-{{ message.tags }}">{{ message }}</p>
         {% endfor %}
       </div>

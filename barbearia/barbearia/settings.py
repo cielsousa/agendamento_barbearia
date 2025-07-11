@@ -28,9 +28,9 @@ key = get_random_secret_key()
 SECRET_KEY = key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['LucielNascimento.pythonanywhere.com']
 
 
 # Application definition
@@ -124,8 +124,8 @@ USE_TZ = True
 
 STATIC_URL = ('/home/LucielNascimento/agendamento_barbearia/barbearia/gerenciador_horario/static/')
 
-
-STATIC_ROOT = "staticfiles/"
+STATIC_ROOT = "/home/LucielNascimento/agendamento_barbearia/barbearia/staticfiles/"
+#STATIC_ROOT = "staticfiles/"
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 #STATIC_ROOT = 'static/'
