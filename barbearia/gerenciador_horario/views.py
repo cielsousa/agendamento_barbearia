@@ -3,9 +3,6 @@ from django.http import HttpResponse, JsonResponse
 from .models import DiaDisponivel, HorarioDisponivel, Agendamento, Client, Monday, Tuesday, Wednesday, Thursday, Friday
 from .forms import FormAgendamento, ToScheduleMonday
 from django.http import HttpResponseRedirect
-from django.core.validators import MaxLengthValidator, MinLengthValidator
-from django.core.exceptions import ValidationError
-from django.contrib import messages
 
 from django.template.loader import render_to_string
 
@@ -64,11 +61,13 @@ def agendamento(request):
     return render(request, 'agendamento.html', {'dias': dias})
 
 
-# Recebe a requisição com o dia selecionado, faz a consulta na tabela 
-# de horários de acordo com o dia e retorna os registros de horários
-# disponíveis daquele determinado dia
+
 
 def horarios_disponiveis(request, dia_id):
+    # Recebe a requisição com o dia selecionado, faz a consulta na tabela 
+    # de horários de acordo com o dia e retorna os registros de horários
+    # disponíveis daquele determinado dia
+
     horario = HorarioDisponivel.objects.filter(dia=dia_id, agendado=False)
 
     return JsonResponse([
@@ -76,8 +75,10 @@ def horarios_disponiveis(request, dia_id):
         ], safe=False)
 
 
-# Recebe os dados de agendamento do usuário e preenche o formulário de agendamento
+
 def form_agendamento(request):
+    # Recebe os dados de agendamento do usuário e preenche o formulário de agendamento
+    
     dia_id = request.GET.get('dia_id')
     horario_id = request.GET.get('horario_id')
 
@@ -117,24 +118,36 @@ def agendar(request):
             HorarioDisponivel.objects.filter(dia=DiaDisponivel.objects.get(pk=dia_id),
                                             hora=hora_disponivel).update(agendado=True)
             
-            return HttpResponseRedirect('/agendamento/')
+            return JsonResponse({"success": True, "message": "Agendamento realizado com sucesso!"})
 
         else:
-            return render(request, 'agendamento.html', {'form':form})
-
-    else:
-        context = {'form': form}
-        return render(request, 'agendamento.html', context)
+            html = render_to_string('form_agendamento.html', {'form': form}, request)
+            return JsonResponse({'success': False, 'html': html})
+    
     
 
 def agendado(request):
     # Filtra o field(dia) da tabela agendamento de acordo com filtro
     # passado no field relacionado(data) da tabela diadisponivel e 
     # retorna os registros correspondentes da tabela agendamento
-    horario_agendado = Agendamento.objects.filter( dia__data__gte=date.today())
+
+    dia_agendado = Agendamento.objects.filter( dia__data__gte=date.today()).order_by('dia__data', 'horario__hora')
+    dia_agendado_unique = DiaDisponivel.objects.filter(data__gte=date.today()).distinct()[:10]
+    context = {
+        'dia_agendado': dia_agendado_unique
+    }
+    return render(request, 'agendado.html', context)
+
+
+
+# PROBLEMA NESSA FUÇÃO FDP
+def dia_agendado(request, diaId):
+   
+    horario_agendado = Agendamento.objects.filter(dia=diaId).order_by('dia__data', 'horario__hora')
     
     context = {
         'horario_agendado': horario_agendado
     }
-    return render(request, 'agendado.html', context)
 
+    return JsonResponse([{'horario': h.horario, 'id' : h.id, 'cliente': h.cliente, 'telefone': h.telefone} for h in horario_agendado], safe=False)
+    #return render(request, 'agendado.html', context)

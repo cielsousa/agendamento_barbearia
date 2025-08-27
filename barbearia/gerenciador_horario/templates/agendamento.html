@@ -41,17 +41,7 @@
   <div id="form-container" class="mt-6 hidden">
     <!-- Aqui o formulário será injetado -->
   
- 
-    {% if messages %}
-      <div class="mt-4">
-        {% for message in messages %}
-          <span>{{ form.telefone.errors }}</span>
-          <p class="text-{{ message.tags }}">{{ message }}</p>
-        {% endfor %}
-      </div>
-    {% endif %}
   </div>
-
 
   <script>
     document.querySelectorAll(".dia-btn").forEach(btn => {
@@ -97,6 +87,41 @@
               list.innerHTML = "<p class='text-gray-500'>Nenhum horário disponível.</p>";
             }
           });
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // O formulário é carregado dinamicamente, então usamos delegação
+      document.body.addEventListener('submit', function (e) {
+        if (e.target && e.target.id === 'form-agendamento') {
+          e.preventDefault();
+
+          const form = e.target;
+          const formData = new FormData(form);
+          const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+          fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': csrfToken,
+            },
+            body: formData,
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              // Aqui você pode fechar o modal ou atualizar a agenda
+              alert("Agendamento confirmado!");
+              location.reload();  // ou atualize parte da tela
+            } else {
+              // Substitui o formulário pelo novo com erros
+              document.getElementById('form-container').innerHTML = data.html;
+            }
+          })
+          .catch(error => {
+            console.error('Erro no envio do formulário:', error);
+          });
+        }
       });
     });
 

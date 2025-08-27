@@ -1,85 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>Agendamento</title>
+  <meta charset="UTF-8">
+  <title>Painel do Barbeiro</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'horario.css' %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<header>
-        <div class="header-container">
-            <h1>Barbearia corte rápido</h1>
-        </div>
-    </header>
-<body class="bg-gray-100 p-6">
-    
+<body class="bg-gray-100 min-h-screen p-4">
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold text-center text-gray-800">Painel do Barbeiro</h1>
+  </header>
 
-  <h2>Lista de horários agendados</h2>
-
-    <div>
-      
-      <ul>
-        {% for i in horario_agendado %}
-        <li>
-          {{ i.cliente }}
-          {{ i.telefone }}
-          {{ i.dia }}
-          {{ i.horario }}
-          {{ i.criado_em }}
-        </li>
+  <div class="max-w-4xl mx-auto">
+    <!-- Seletor de Dias -->
+    <div class="mb-6">
+      <h2 class="text-xl font-semibold mb-2">Selecione o dia</h2>
+      <div class="flex overflow-x-auto gap-2">
+        {% for dia in dia_agendado %}
+          <button 
+            class="dia-btn px-4 py-2 rounded bg-white border hover:bg-blue-500 hover:text-white transition whitespace-nowrap"
+            data-dia="{{ dia.id }}">
+            {{ dia.data }}
+          </button>
         {% endfor %}
-      </ul>  
+      </div>
     </div>
+
+    <!-- Agendamentos -->
+    <div id="agendamentos-container" class="space-y-4 hidden">
+      <h3 class="text-lg font-bold">Horários agendados</h3>
+      <div id="agendamentos-list" class="space-y-3">
+        <!-- Cards de agendamentos serão injetados aqui -->
+      </div>
+    </div>
+  </div>
 
   <script>
     document.querySelectorAll(".dia-btn").forEach(btn => {
       btn.addEventListener("click", function () {
-        // Atualiza estilos
         document.querySelectorAll(".dia-btn").forEach(b => {
           b.classList.remove("bg-blue-500", "text-white");
-          b.classList.add("bg-white");
+          b.classList.add("bg-white", "text-black");
         });
         this.classList.add("bg-blue-500", "text-white");
 
         const diaId = this.dataset.dia;
 
-        fetch(`/api/horarios/${diaId}/`)
+        fetch(`/api/agendamentos/${diaId}/`)
           .then(res => res.json())
           .then(data => {
-            const container = document.getElementById("horarios-container");
-            const list = document.getElementById("horarios-list");
+            const container = document.getElementById("agendamentos-container");
+            const list = document.getElementById("agendamentos-list");
             list.innerHTML = "";
 
             if (data.length > 0) {
               container.classList.remove("hidden");
-              data.forEach(h => {
-                const btn = document.createElement("button");
-                btn.textContent = h.hora;
-                btn.className = "px-4 py-2 bg-white border rounded hover:bg-green-500 hover:text-white transition";
-                btn.addEventListener("click", () => {
-                  
-                    const formContainer = document.getElementById("form-container");
 
-                    fetch(`/form-agendamento/?dia_id=${diaId}&horario_id=${h.id}&hora_disponivel=${h.hora}`)
-                      .then(res => res.json())
-                      .then(data => {
-                        formContainer.innerHTML = data.html;
-                        formContainer.classList.remove("hidden");
-                        formContainer.scrollIntoView({ behavior: "smooth" });  
-                      });
-                });
-                list.appendChild(btn);
+              data.forEach(h => {
+                const card = document.createElement("div");
+                card.className = "bg-white p-4 rounded shadow border";
+
+                card.innerHTML = `<h1>${h.horario} - ${h.id} - ${h.cliente} - ${h.telefone} </h1>`;
+                list.appendChild(card);
               });
             } else {
               container.classList.remove("hidden");
-              list.innerHTML = "<p class='text-gray-500'>Nenhum horário disponível.</p>";
+              list.innerHTML = "<p class='text-gray-500'>Nenhum agendamento para esse dia.</p>";
             }
           });
       });
     });
-
   </script>
 </body>
 </html>
