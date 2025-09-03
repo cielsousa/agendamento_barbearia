@@ -4,6 +4,8 @@ from .models import DiaDisponivel, HorarioDisponivel, Agendamento, Client, Monda
 from .forms import FormAgendamento, ToScheduleMonday
 from django.http import HttpResponseRedirect
 
+from .serializers import DiaDisponivelSerializer, HorarioDisponivelSerializer, AgendamentoSerializer
+
 from django.template.loader import render_to_string
 
 from datetime import date
@@ -140,14 +142,11 @@ def agendado(request):
 
 
 
-# PROBLEMA NESSA FUÇÃO FDP
+
 def dia_agendado(request, diaId):
    
     horario_agendado = Agendamento.objects.filter(dia=diaId).order_by('dia__data', 'horario__hora')
     
-    context = {
-        'horario_agendado': horario_agendado
-    }
+    serialized_data = AgendamentoSerializer(horario_agendado, many=True).data
 
-    return JsonResponse([{'horario': h.horario, 'id' : h.id, 'cliente': h.cliente, 'telefone': h.telefone} for h in horario_agendado], safe=False)
-    #return render(request, 'agendado.html', context)
+    return JsonResponse(serialized_data, safe=False)

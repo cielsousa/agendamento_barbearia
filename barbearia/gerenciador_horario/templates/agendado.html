@@ -60,7 +60,7 @@
                 const card = document.createElement("div");
                 card.className = "bg-white p-4 rounded shadow border";
 
-                card.innerHTML = `<h1>${h.horario} - ${h.id} - ${h.cliente} - ${h.telefone} </h1>`;
+                card.innerHTML = `<h1>${h.id} - ${h.cliente} - ${h.telefone} - ${h.dia.data} - ${h.horario.hora} - ${h.criado_em}</h1>`;
                 list.appendChild(card);
               });
             } else {
@@ -68,8 +68,8 @@
               list.innerHTML = "<p class='text-gray-500'>Nenhum agendamento para esse dia.</p>";
             }
           });
+        });
       });
-    });
   </script>
 </body>
 </html>

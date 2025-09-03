@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gerenciador_horario.apps.GerenciadorHorarioConfig',
+    'rest_framework',
 ]
 
 

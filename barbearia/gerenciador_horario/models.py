@@ -21,7 +21,7 @@ class DiaDisponivel(models.Model):
     
 
 class HorarioDisponivel(models.Model):
-    dia = models.ForeignKey(DiaDisponivel, on_delete=models.CASCADE, related_name='dia')
+    dia = models.ForeignKey(DiaDisponivel, on_delete=models.CASCADE, related_name='horarios')
     hora = models.TimeField()
     agendado = models.BooleanField(default=False)
 
