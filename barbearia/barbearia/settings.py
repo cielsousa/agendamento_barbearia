@@ -30,7 +30,7 @@ SECRET_KEY = key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['172.31.44.193']
+ALLOWED_HOSTS = ['ec2-15-229-66-175.sa-east-1.compute.amazonaws.com']
 
 
 # Application definition
