@@ -17,7 +17,7 @@ class DiaDisponivel(models.Model):
     data = models.DateField(unique=True)
 
     def __str__(self):
-        return f'{self.data.strftime('%d/%m/%Y')}'
+        return self.data.strftime('%d/%m/%Y')
     
 
 class HorarioDisponivel(models.Model):
