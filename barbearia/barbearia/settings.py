@@ -30,7 +30,7 @@ SECRET_KEY = key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['ip-172-31-44-193.sa-east-1.compute.internal']
 
 
 # Application definition
